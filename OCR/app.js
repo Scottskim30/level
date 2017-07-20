@@ -1,14 +1,17 @@
-// app code goes here
-// matrix.init()....
-//
-// have fun
+/*
+This app uses OCR (ocrad.js specifically)
+to read characters from pictures take by
+the pi camera
+
+INCOMPLETE
+*/
 
 const {execFileSync} = require('child_process');
 var sudo = require('sudo');
 const okrabyte = require('okrabyte');
 //const fs = require('fs');
 
-
+//pi camera does not work in tandem with MALOS EYE
 sudo([ 'pkill', 'malos_eye' ]);
 
 setInterval(function()

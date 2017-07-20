@@ -1,0 +1,21 @@
+# do not touch this line
+configVersion: 2
+
+description: Pie chart of temperature
+keywords: temperature
+name: temptest
+displayName: Temptest
+
+
+
+widgets:
+	tempCircle:
+		display: gauge
+		type: detect
+		keys: temp
+		min: -100
+		max: 100
+		label: 'Degrees Celcius'
+
+sensors:
+	- temperature

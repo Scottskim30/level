@@ -1,14 +1,16 @@
-// app code goes here
-// matrix.init()....
-//
-// have fun
+/*
+This app uses the MATRIX Creator's gyroscope
+and LEDs to show if the Creator is level by converting
+gyroscope readings into vectors
+*/
 
 var options =
 {
     refresh: 50,
     timeout: 15000
 }
-
+//uses and xy-plane and arctangent to determine which direction the
+//Creator is tilting towards and how far it is tilting
     var quad;
     var amp;
     var angle;
@@ -18,6 +20,8 @@ matrix.init('gyroscope', options).then(function(data)
     var y = data.roll;
     var x = data.pitch;
 
+    //determining which quadrant tilt is in and manipulating values
+    //accordingly to work with arctangent correctly
     if(y >= 0 && x >= 0)
         quad = 1;
     else if(y >= 0 && x < 0)
@@ -37,10 +41,12 @@ matrix.init('gyroscope', options).then(function(data)
         y *= -1;
     }
 
+    //finding angle (from 0 to 90) of tilt
     angle = Math.atan(y/x) * 180 / Math.PI;
 
-    //console.log('Quadrant: ' + quad);
-    //console.log('Angle: ' + angle);
+    //uses quadrant found above to light up the correct LEDs
+    //due to the Creator's angle starting from 0 on the left
+    //and rotating clockwise
     switch(quad)
     {
         case 1:
@@ -61,21 +67,22 @@ matrix.init('gyroscope', options).then(function(data)
         }
     }
 
+    //amp is the magnitude of the tilt
     amp = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
-
-    //console.log('Amplitude: ' + amp);
 
 
     var shape =
     {
         arc: amp * 8,
-        color: 'rgba(200, ' + (10 + (190 - 9.5 * amp)) + ', 0, 0.4)',
+        color: 'rgb(200, ' + (10 + (190 - 9.5 * amp)) + ', 0)',
         start: angle - amp * 4
     }
     
+    //tolerance is here
     if(amp < 3)
     {
-        shape.color = 'rgba(0, 25, 0, 0.2)'
+        //all lights green (is level)
+        shape.color = 'rgb(0, 25, 0)'
         shape.arc = 360
     }
 
