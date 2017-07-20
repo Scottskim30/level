@@ -1,0 +1,7 @@
+# do not touch this line
+configVersion: 2
+
+description: Converts text in images to output in console
+keywords: ''
+name: OCR
+displayName: OCR
